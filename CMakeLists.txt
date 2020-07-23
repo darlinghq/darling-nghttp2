@@ -7,7 +7,14 @@ set(PACKAGE_VERSION     "${PROJECT_VERSION}")
 HexVersion(PACKAGE_VERSION_NUM ${PROJECT_VERSION_MAJOR} ${PROJECT_VERSION_MINOR} ${PROJECT_VERSION_PATCH})
 
 configure_file(lib/includes/nghttp2/nghttp2ver.h.in lib/includes/nghttp2/nghttp2ver.h @ONLY)
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/${DARLING_SDK_RELATIVE_PATH}/usr/include/nghttp2")
+file(CREATE_LINK
+	"${DARLING_ROOT_RELATIVE_TO_SDK}/../../../src/external/nghttp2/lib/includes/nghttp2/nghttp2ver.h"
+	"${CMAKE_BINARY_DIR}/${DARLING_SDK_RELATIVE_PATH}/usr/include/nghttp2/nghttp2ver.h"
+	SYMBOLIC
+)
 
+set(DYLIB_INSTALL_NAME "/usr/lib/libapple_nghttp2.dylib")
 set(DYLIB_CURRENT_VERSION "${PROJECT_VERSION}")
 
 add_darling_library(nghttp2
